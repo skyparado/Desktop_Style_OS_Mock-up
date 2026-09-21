@@ -6,7 +6,6 @@
 namespace {
 void Hill(ImDrawList* draw, ImVec2 origin, ImVec2 size, float level,
           float amplitude, float phase, ImU32 top, ImU32 bottom) {
-    // Adjacent gradient quads form a smooth landscape at any aspect ratio.
     constexpr int segments = 160;
     for (int i = 0; i < segments; ++i) {
         const float u = float(i) / segments;
@@ -41,8 +40,6 @@ bool DrawDesktop() {
     const ImVec2 p = viewport->Pos;
     const ImVec2 size = viewport->Size;
     const ImVec2 end(p.x + size.x, p.y + size.y);
-    // The background draw list is always behind regular ImGui windows,
-    // even after clicking the wallpaper. No full-screen window steals input.
     ImDrawList* draw = ImGui::GetBackgroundDrawList();
     draw->AddRectFilledMultiColor(p, end,
         IM_COL32(23, 53, 76, 255), IM_COL32(31, 66, 87, 255),
@@ -56,7 +53,6 @@ bool DrawDesktop() {
     Hill(draw, p, size, 0.72f, 0.09f, 4.3f, IM_COL32(44, 105, 110, 255), IM_COL32(26, 69, 83, 255));
     Hill(draw, p, size, 0.88f, 0.07f, 1.2f, IM_COL32(25, 73, 79, 255), IM_COL32(12, 36, 49, 255));
 
-    // Query wall-clock time every frame, including after suspend or time changes.
     const std::time_t now = std::time(nullptr);
     std::tm local{};
 #ifdef _WIN32

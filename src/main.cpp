@@ -52,7 +52,6 @@ int main() {
         ImGui::NewFrame();
         if (DrawDesktop()) glfwSetWindowShouldClose(window, GLFW_TRUE);
 
-        // Integration point: render your teammates' ImGui windows here.
 #ifdef DESKTOP_VERIFY
         VerificationWindow();
 #endif
@@ -69,7 +68,6 @@ int main() {
         glfwSwapBuffers(window);
     }
 
-    // PWR exits the loop and reaches all resource cleanup; no forced exit.
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();

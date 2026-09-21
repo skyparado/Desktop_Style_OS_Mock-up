@@ -1,9 +1,11 @@
 param([switch]$Verify)
 $ErrorActionPreference = 'Stop'
+$originalPath = $env:PATH
 Push-Location (Split-Path $PSScriptRoot -Parent)
 try {
     $compiler = Join-Path (Get-Location) '.deps/w64devkit/bin/g++.exe'
     if (!(Test-Path $compiler)) { throw 'Run scripts/setup.ps1 first.' }
+    $env:PATH = (Split-Path $compiler -Parent) + ';' + $env:PATH
     New-Item -ItemType Directory -Force build | Out-Null
     $imgui = '.deps/imgui-1.91.9b'
     $glfw = '.deps/glfw-3.4.bin.WIN64'
@@ -21,4 +23,4 @@ try {
     & $compiler @options @sources "$glfw/lib-mingw-w64/libglfw3.a" '-lopengl32' '-lgdi32' '-o' $output
     if ($LASTEXITCODE -ne 0) { throw "Compilation failed ($LASTEXITCODE)." }
     Write-Host "Built $output"
-} finally { Pop-Location }
+} finally { $env:PATH = $originalPath; Pop-Location }

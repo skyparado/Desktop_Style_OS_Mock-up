@@ -1,0 +1,43 @@
+PASS Requested window dimensions applied
+PASS ImGui display follows resize
+PASS Saved actual OpenGL framebuffer: desktop-1280x720
+PASS Wallpaper covers every framebuffer edge pixel: desktop-1280x720
+PASS PWR stays inside client area
+PASS Requested window dimensions applied
+PASS ImGui display follows resize
+PASS Saved actual OpenGL framebuffer: desktop-800x600
+PASS Wallpaper covers every framebuffer edge pixel: desktop-800x600
+PASS PWR stays inside client area
+PASS Requested window dimensions applied
+PASS ImGui display follows resize
+PASS Saved actual OpenGL framebuffer: desktop-640x360
+PASS Wallpaper covers every framebuffer edge pixel: desktop-640x360
+PASS PWR stays inside client area
+PASS Requested window dimensions applied
+PASS ImGui display follows resize
+PASS Saved actual OpenGL framebuffer: desktop-360x640
+PASS Wallpaper covers every framebuffer edge pixel: desktop-360x640
+PASS PWR stays inside client area
+PASS Requested window dimensions applied
+PASS ImGui display follows resize
+PASS Saved actual OpenGL framebuffer: desktop-320x240
+PASS Wallpaper covers every framebuffer edge pixel: desktop-320x240
+PASS PWR stays inside client area
+PASS Requested window dimensions applied
+PASS ImGui display follows resize
+PASS Saved actual OpenGL framebuffer: desktop-1600x900
+PASS Wallpaper covers every framebuffer edge pixel: desktop-1600x900
+PASS PWR stays inside client area
+PASS Ordinary window renders after the desktop background
+PASS Saved actual OpenGL framebuffer: window-above-desktop
+PASS Wallpaper covers every framebuffer edge pixel: window-above-desktop
+PASS Saved actual OpenGL framebuffer: clock-before
+PASS Wallpaper covers every framebuffer edge pixel: clock-before
+PASS Rendered clock pixels change while application continues running
+PASS Saved actual OpenGL framebuffer: clock-after
+PASS Wallpaper covers every framebuffer edge pixel: clock-after
+PASS Mouse press/release on actual PWR button requests GLFW close
+PASS Application leaves render loop through PWR
+PASS Clock update was observed
+PASS ImGui, OpenGL backend and GLFW cleanup completed
+Failures: 0
