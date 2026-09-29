@@ -9,9 +9,6 @@ namespace {
 double num1 = 0.0;
 double num2 = 0.0;
 double result = 0.0;
-
-char operation = '+';
-
 }
 
 
@@ -27,8 +24,8 @@ void DrawApp2(bool& isOpen) {
     if (ImGui::Begin("Calculator - App 2", &isOpen)) {
 
         //inputs for num1 & num2
-        ImGui::InputDouble("First number", &num1);
-        ImGui::InputDouble("Second number", &num2);
+        ImGui::InputDouble("First Number", &num1);
+        ImGui::InputDouble("Second Number", &num2);
         ImGui::Separator();
 
 
