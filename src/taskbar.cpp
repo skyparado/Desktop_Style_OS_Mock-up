@@ -43,7 +43,7 @@ void DrawTaskbar(WindowStates& windows) {
         if (width > 130.0f) width = 130.0f;
         if (width < 40.0f) width = 40.0f;
         TaskbarButton("Notes", windows.showApp1, width);
-        TaskbarButton("App 2", windows.showApp2, width);
+        TaskbarButton("Calc", windows.showApp2, width);
         TaskbarButton("Task Mgr", windows.showTaskManager, width);
     }
     ImGui::End();

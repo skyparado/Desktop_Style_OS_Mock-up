@@ -1,6 +1,7 @@
 #include "desktop.h"
 #include "taskbar.h"
 #include "app1.h"
+#include "app2.h"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -57,7 +58,8 @@ int main() {
         if (DrawDesktop()) glfwSetWindowShouldClose(window, GLFW_TRUE);
         DrawTaskbar(windows);
         DrawApp1(windows.showApp1);
-        // App 2 and Task Manager go here
+        DrawApp2(windows.showApp2);
+        // Task Manager goes here
 
 #ifdef DESKTOP_VERIFY
         VerificationWindow();
