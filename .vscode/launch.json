@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Desktop",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/desktop.exe",
+            "cwd": "${workspaceFolder}",
+            "preLaunchTask": "build",
+            "MIMode": "gdb",
+            "miDebuggerPath": "${workspaceFolder}/.deps/w64devkit/bin/gdb.exe",
+            "externalConsole": false
+        }
+    ]
+}

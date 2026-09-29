@@ -1,4 +1,6 @@
 #include "desktop.h"
+#include "taskbar.h"
+#include "app1.h"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -38,6 +40,8 @@ int main() {
         glfwDestroyWindow(window); glfwTerminate(); return 1;
     }
 
+    WindowStates windows;
+
     while (!glfwWindowShouldClose(window)) {
         glfwPollEvents();
         if (glfwGetWindowAttrib(window, GLFW_ICONIFIED)) {
@@ -51,6 +55,9 @@ int main() {
 #endif
         ImGui::NewFrame();
         if (DrawDesktop()) glfwSetWindowShouldClose(window, GLFW_TRUE);
+        DrawTaskbar(windows);
+        DrawApp1(windows.showApp1);
+        // App 2 and Task Manager go here
 
 #ifdef DESKTOP_VERIFY
         VerificationWindow();

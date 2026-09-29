@@ -36,6 +36,10 @@ PASS Wallpaper covers every framebuffer edge pixel: clock-before
 PASS Rendered clock pixels change while application continues running
 PASS Saved actual OpenGL framebuffer: clock-after
 PASS Wallpaper covers every framebuffer edge pixel: clock-after
+PASS Taskbar button opens App 1
+PASS Saved actual OpenGL framebuffer: taskbar-app1
+PASS Wallpaper covers every framebuffer edge pixel: taskbar-app1
+PASS Taskbar button closes App 1 again
 PASS Mouse press/release on actual PWR button requests GLFW close
 PASS Application leaves render loop through PWR
 PASS Clock update was observed

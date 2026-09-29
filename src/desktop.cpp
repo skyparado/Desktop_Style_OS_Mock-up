@@ -70,10 +70,10 @@ bool DrawDesktop() {
     draw->AddRect(clockStart, ImVec2(end.x - margin, p.y + 103.0f), IM_COL32(218, 239, 231, 35), 14.0f);
     draw->AddText(ImGui::GetFont(), 25.0f, ImVec2(clockStart.x + 17, clockStart.y + 13), IM_COL32(240, 247, 239, 255), timeText);
     draw->AddText(ImGui::GetFont(), 15.0f, ImVec2(clockStart.x + 17, clockStart.y + 48), IM_COL32(174, 199, 200, 255), dateText);
-    draw->AddText(ImGui::GetFont(), 20.0f, ImVec2(p.x + margin, end.y - 65), IM_COL32(230, 242, 229, 255), "CSOPESY");
-    draw->AddText(ImGui::GetFont(), 12.0f, ImVec2(p.x + margin, end.y - 37), IM_COL32(140, 174, 177, 255), "DESKTOP ENVIRONMENT");
+    draw->AddText(ImGui::GetFont(), 20.0f, ImVec2(p.x + margin, end.y - 113), IM_COL32(230, 242, 229, 255), "CSOPESY");
+    draw->AddText(ImGui::GetFont(), 12.0f, ImVec2(p.x + margin, end.y - 85), IM_COL32(140, 174, 177, 255), "DESKTOP ENVIRONMENT");
 
-    ImGui::SetNextWindowPos(ImVec2(end.x - 102, end.y - 66));
+    ImGui::SetNextWindowPos(ImVec2(end.x - 102, end.y - 47));
     ImGui::SetNextWindowSize(ImVec2(82, 46));
     ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
     ImGui::PushStyleVar(ImGuiStyleVar_FrameRounding, 12.0f);

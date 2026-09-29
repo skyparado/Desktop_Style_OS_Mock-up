@@ -63,6 +63,15 @@ void VerificationBeforeFrame(GLFWwindow* window) {
     if (stage < 6 && frame == 0) glfwSetWindowSize(window, sizes[stage][0], sizes[stage][1]);
     if (stage == 6 && frame == 0) glfwSetWindowSize(window, 1280, 720);
     if (stage == 8) {
+        // open and then close App 1 from the taskbar
+        int height;
+        glfwGetWindowSize(window, nullptr, &height);
+        ImGuiIO& io = ImGui::GetIO();
+        io.AddMousePosEvent(75.0f, float(height - 24));
+        if (frame == 8 || frame == 30) io.AddMouseButtonEvent(0, true);
+        if (frame == 10 || frame == 32) io.AddMouseButtonEvent(0, false);
+    }
+    if (stage == 9) {
         int width, height;
         glfwGetWindowSize(window, &width, &height);
         ImGuiIO& io = ImGui::GetIO();
@@ -126,7 +135,16 @@ void VerificationAfterFrame(GLFWwindow* window) {
             Capture(window, "clock-after");
             ++stage; frame = 0;
         }
-    } else if (stage == 8 && glfwWindowShouldClose(window)) {
+    } else if (stage == 8) {
+        ImGuiWindow* app1 = ImGui::FindWindowByName("Notes - App 1");
+        if (frame == 20) {
+            Check(app1 && app1->WasActive, "Taskbar button opens App 1");
+            Capture(window, "taskbar-app1");
+        } else if (frame == 40) {
+            Check(app1 && !app1->WasActive, "Taskbar button closes App 1 again");
+            ++stage; frame = 0;
+        }
+    } else if (stage == 9 && glfwWindowShouldClose(window)) {
         powerWorked = true;
         Check(true, "Mouse press/release on actual PWR button requests GLFW close");
     }
