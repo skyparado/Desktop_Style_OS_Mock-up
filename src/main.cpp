@@ -2,6 +2,7 @@
 #include "taskbar.h"
 #include "app1.h"
 #include "app2.h"
+#include "task_manager.h"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -59,7 +60,7 @@ int main() {
         DrawTaskbar(windows);
         DrawApp1(windows.showApp1);
         DrawApp2(windows.showApp2);
-        // Task Manager goes here
+        DrawTaskManager(windows.showTaskManager);
 
 #ifdef DESKTOP_VERIFY
         VerificationWindow();
