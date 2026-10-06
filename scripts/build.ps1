@@ -9,7 +9,7 @@ try {
     New-Item -ItemType Directory -Force build | Out-Null
     $imgui = '.deps/imgui-1.91.9b'
     $glfw = '.deps/glfw-3.4.bin.WIN64'
-    $sources = @('src/main.cpp', 'src/desktop.cpp', 'src/taskbar.cpp', 'src/app1.cpp', 'src/app2.cpp', "$imgui/imgui.cpp",
+    $sources = @('src/main.cpp', 'src/desktop.cpp', 'src/taskbar.cpp', 'src/app1.cpp', 'src/app2.cpp', 'src/task_manager.cpp', "$imgui/imgui.cpp",
         "$imgui/imgui_draw.cpp", "$imgui/imgui_tables.cpp", "$imgui/imgui_widgets.cpp",
         "$imgui/backends/imgui_impl_glfw.cpp", "$imgui/backends/imgui_impl_opengl3.cpp")
     $options = @('-std=c++17', '-O2', '-Wall', '-Wextra', '-static',

@@ -24,8 +24,8 @@ void DrawApp2(bool& isOpen) {
     if (ImGui::Begin("Calculator - App 2", &isOpen)) {
 
         //inputs for num1 & num2
-        ImGui::InputDouble("First Number", &num1);
-        ImGui::InputDouble("Second Number", &num2);
+        ImGui::InputDouble("First Number", &num1, 0.0, 0.0, "%.2f", ImGuiInputTextFlags_CharsDecimal);
+        ImGui::InputDouble("Second Number", &num2, 0.0, 0.0, "%.2f", ImGuiInputTextFlags_CharsDecimal);
         ImGui::Separator();
 
 
