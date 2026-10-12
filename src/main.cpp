@@ -3,6 +3,7 @@
 #include "app1.h"
 #include "app2.h"
 #include "task_manager.h"
+#include "wallpaper.h"
 #include "imgui.h"
 #include "imgui_impl_glfw.h"
 #include "imgui_impl_opengl3.h"
@@ -16,10 +17,11 @@ int main() {
     glfwSetErrorCallback([](int code, const char* message) {
         std::fprintf(stderr, "GLFW %d: %s\n", code, message);
     });
+    const Config config = LoadConfig();
     if (!glfwInit()) return 1;
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    GLFWwindow* window = glfwCreateWindow(1280, 720, "CSOPESY Desktop", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(config.windowWidth, config.windowHeight, "CSOPESY Desktop", nullptr, nullptr);
     if (!window) { glfwTerminate(); return 1; }
     glfwSetWindowSizeLimits(window, 320, 240, GLFW_DONT_CARE, GLFW_DONT_CARE);
     glfwMakeContextCurrent(window);
@@ -31,7 +33,7 @@ int main() {
     io.IniFilename = nullptr;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     ImFontConfig font;
-    font.SizePixels = 18.0f;
+    font.SizePixels = config.fontSize;
     io.Fonts->AddFontDefault(&font);
     ImGui::StyleColorsDark();
     if (!ImGui_ImplGlfw_InitForOpenGL(window, true)) {
@@ -42,6 +44,7 @@ int main() {
         glfwDestroyWindow(window); glfwTerminate(); return 1;
     }
 
+    LoadWallpaper();
     WindowStates windows;
 
     while (!glfwWindowShouldClose(window)) {
@@ -56,7 +59,7 @@ int main() {
         VerificationBeforeFrame(window);
 #endif
         ImGui::NewFrame();
-        if (DrawDesktop()) glfwSetWindowShouldClose(window, GLFW_TRUE);
+        if (DrawDesktop(config)) glfwSetWindowShouldClose(window, GLFW_TRUE);
         DrawTaskbar(windows);
         DrawApp1(windows.showApp1);
         DrawApp2(windows.showApp2);
@@ -78,6 +81,7 @@ int main() {
         glfwSwapBuffers(window);
     }
 
+    FreeWallpaper();
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();

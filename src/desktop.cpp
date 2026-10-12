@@ -1,5 +1,6 @@
 #include "desktop.h"
 #include "imgui.h"
+#include "wallpaper.h"
 #include <cmath>
 #include <ctime>
 
@@ -35,23 +36,26 @@ void Hill(ImDrawList* draw, ImVec2 origin, ImVec2 size, float level,
 }
 }
 
-bool DrawDesktop() {
+bool DrawDesktop(const Config& config) {
     const ImGuiViewport* viewport = ImGui::GetMainViewport();
     const ImVec2 p = viewport->Pos;
     const ImVec2 size = viewport->Size;
     const ImVec2 end(p.x + size.x, p.y + size.y);
     ImDrawList* draw = ImGui::GetBackgroundDrawList();
-    draw->AddRectFilledMultiColor(p, end,
-        IM_COL32(23, 53, 76, 255), IM_COL32(31, 66, 87, 255),
-        IM_COL32(204, 195, 157, 255), IM_COL32(121, 162, 159, 255));
-    const ImVec2 sun(p.x + size.x * 0.73f, p.y + size.y * 0.35f);
-    const float radius = (size.x < size.y ? size.x : size.y) * 0.075f;
-    draw->AddCircleFilled(sun, radius * 1.5f, IM_COL32(241, 226, 176, 12), 96);
-    draw->AddCircleFilled(sun, radius * 1.2f, IM_COL32(241, 226, 176, 18), 96);
-    draw->AddCircleFilled(sun, radius, IM_COL32(241, 226, 187, 255), 96);
-    Hill(draw, p, size, 0.62f, 0.08f, 2.0f, IM_COL32(86, 132, 133, 255), IM_COL32(55, 103, 112, 255));
-    Hill(draw, p, size, 0.72f, 0.09f, 4.3f, IM_COL32(44, 105, 110, 255), IM_COL32(26, 69, 83, 255));
-    Hill(draw, p, size, 0.88f, 0.07f, 1.2f, IM_COL32(25, 73, 79, 255), IM_COL32(12, 36, 49, 255));
+    // image wallpaper; fall back to the drawn landscape if assets/bg.jpg is missing
+    if (!DrawWallpaper(draw, p, size)) {
+        draw->AddRectFilledMultiColor(p, end,
+            IM_COL32(23, 53, 76, 255), IM_COL32(31, 66, 87, 255),
+            IM_COL32(204, 195, 157, 255), IM_COL32(121, 162, 159, 255));
+        const ImVec2 sun(p.x + size.x * 0.73f, p.y + size.y * 0.35f);
+        const float radius = (size.x < size.y ? size.x : size.y) * 0.075f;
+        draw->AddCircleFilled(sun, radius * 1.5f, IM_COL32(241, 226, 176, 12), 96);
+        draw->AddCircleFilled(sun, radius * 1.2f, IM_COL32(241, 226, 176, 18), 96);
+        draw->AddCircleFilled(sun, radius, IM_COL32(241, 226, 187, 255), 96);
+        Hill(draw, p, size, 0.62f, 0.08f, 2.0f, IM_COL32(86, 132, 133, 255), IM_COL32(55, 103, 112, 255));
+        Hill(draw, p, size, 0.72f, 0.09f, 4.3f, IM_COL32(44, 105, 110, 255), IM_COL32(26, 69, 83, 255));
+        Hill(draw, p, size, 0.88f, 0.07f, 1.2f, IM_COL32(25, 73, 79, 255), IM_COL32(12, 36, 49, 255));
+    }
 
     const std::time_t now = std::time(nullptr);
     std::tm local{};
@@ -62,7 +66,10 @@ bool DrawDesktop() {
 #endif
     char timeText[32];
     char dateText[64];
-    std::strftime(timeText, sizeof(timeText), "%I:%M:%S %p", &local);
+    const char* timeFormat = config.clock24h
+        ? (config.showSeconds ? "%H:%M:%S" : "%H:%M")
+        : (config.showSeconds ? "%I:%M:%S %p" : "%I:%M %p");
+    std::strftime(timeText, sizeof(timeText), timeFormat, &local);
     std::strftime(dateText, sizeof(dateText), "%a, %b %d, %Y", &local);
     const float margin = 20.0f;
     const ImVec2 clockStart(end.x - 224.0f, p.y + margin);
@@ -70,8 +77,16 @@ bool DrawDesktop() {
     draw->AddRect(clockStart, ImVec2(end.x - margin, p.y + 103.0f), IM_COL32(218, 239, 231, 35), 14.0f);
     draw->AddText(ImGui::GetFont(), 25.0f, ImVec2(clockStart.x + 17, clockStart.y + 13), IM_COL32(240, 247, 239, 255), timeText);
     draw->AddText(ImGui::GetFont(), 15.0f, ImVec2(clockStart.x + 17, clockStart.y + 48), IM_COL32(174, 199, 200, 255), dateText);
-    draw->AddText(ImGui::GetFont(), 20.0f, ImVec2(p.x + margin, end.y - 113), IM_COL32(230, 242, 229, 255), "CSOPESY");
-    draw->AddText(ImGui::GetFont(), 12.0f, ImVec2(p.x + margin, end.y - 85), IM_COL32(140, 174, 177, 255), "DESKTOP ENVIRONMENT");
+    // dark panel keeps the label readable on light wallpapers
+    const char* subtitle = "DESKTOP ENVIRONMENT";
+    const float titleWidth = ImGui::GetFont()->CalcTextSizeA(20.0f, FLT_MAX, 0.0f, config.desktopTitle.c_str()).x;
+    const float subtitleWidth = ImGui::GetFont()->CalcTextSizeA(12.0f, FLT_MAX, 0.0f, subtitle).x;
+    const ImVec2 labelStart(p.x + margin - 10.0f, end.y - 121.0f);
+    const ImVec2 labelEnd(p.x + margin + (titleWidth > subtitleWidth ? titleWidth : subtitleWidth) + 10.0f, end.y - 63.0f);
+    draw->AddRectFilled(labelStart, labelEnd, IM_COL32(12, 30, 43, 170), 10.0f);
+    draw->AddRect(labelStart, labelEnd, IM_COL32(218, 239, 231, 35), 10.0f);
+    draw->AddText(ImGui::GetFont(), 20.0f, ImVec2(p.x + margin, end.y - 113), IM_COL32(230, 242, 229, 255), config.desktopTitle.c_str());
+    draw->AddText(ImGui::GetFont(), 12.0f, ImVec2(p.x + margin, end.y - 85), IM_COL32(174, 199, 200, 255), subtitle);
 
     ImGui::SetNextWindowPos(ImVec2(end.x - 102, end.y - 47));
     ImGui::SetNextWindowSize(ImVec2(82, 46));

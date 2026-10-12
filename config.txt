@@ -1,0 +1,7 @@
+# CSOPESY Desktop settings - edit, save, then press Run (F5)
+window-width 1280
+window-height 720
+clock-24h false
+show-seconds true
+desktop-title "CSOPESY"
+font-size 18

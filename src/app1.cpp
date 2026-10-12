@@ -5,12 +5,13 @@
 
 namespace {
 const char kSample[] =
-    "To-do - Week 5\n"
+    "Welcome to the CSOPESY Desktop!\n"
     "\n"
-    "- Finish the desktop and taskbar\n"
-    "- Test all apps together\n"
-    "- Record the demo video\n"
-    "- Submit the PPT\n";
+    "Quick tour:\n"
+    "- Notes: type anything here, Clear or Reset it\n"
+    "- Calc: add, subtract, multiply or divide two numbers\n"
+    "- Task Mgr: view the running process list\n"
+    "- PWR: shut down the desktop\n";
 
 char gNote[2048];
 bool gLoaded = false;

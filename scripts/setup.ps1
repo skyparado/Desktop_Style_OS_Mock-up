@@ -5,7 +5,8 @@ try {
     $downloads = @(
         @('https://github.com/ocornut/imgui/archive/refs/tags/v1.91.9b.tar.gz', 'imgui.tar.gz', '8E1BBC76C71D74FEF2FB85DB7E7CA8EBA13D6A86623C54992B60162DB554FFDB'),
         @('https://github.com/glfw/glfw/releases/download/3.4/glfw-3.4.bin.WIN64.zip', 'glfw.zip', '54EFA829400F2A0537F742B2B3BDD74E437BB4F2F048E4B7D3C5557D11A611E6'),
-        @('https://github.com/skeeto/w64devkit/releases/download/v2.0.0/w64devkit-x64-2.0.0.exe', 'w64devkit.exe', 'CEA23FC56A5E61457492113A8377C8AB0C42ED82303FCC454CCD1963A46F8CE1')
+        @('https://github.com/skeeto/w64devkit/releases/download/v2.0.0/w64devkit-x64-2.0.0.exe', 'w64devkit.exe', 'CEA23FC56A5E61457492113A8377C8AB0C42ED82303FCC454CCD1963A46F8CE1'),
+        @('https://raw.githubusercontent.com/nothings/stb/013ac3beddff3dbffafd5177e7972067cd2b5083/stb_image.h', 'stb_image.h', '594C2FE35D49488B4382DBFAEC8F98366DEFCA819D916AC95BECF3E75F4200B3')
     )
     foreach ($download in $downloads) {
         $destination = Join-Path '.deps' $download[1]
